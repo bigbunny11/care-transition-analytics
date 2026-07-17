@@ -7,7 +7,9 @@ st.set_page_config(page_title="Care Transition Analytics", layout="wide")
 # ── LOAD DATA ──
 @st.cache_data
 def load_data():
-    df = pd.read_csv("KPI Sheet - HHS_Unaccompanied_Alien_Children_Program.csv")
+    import glob
+csv_file = glob.glob("*.csv")[0]
+df = pd.read_csv(csv_file)
     df.columns = df.columns.str.strip()
     df = df.rename(columns={
         'Date': 'Date',
