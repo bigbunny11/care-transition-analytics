@@ -6,7 +6,7 @@ st.set_page_config(page_title="Care Transition Analytics", layout="wide")
 
 @st.cache_data
 def load_data():
-    df = pd.read_csv("KPI Sheet  - HHS_Unaccompanied_Alien_Children_Program.csv")
+    df = pd.read_csv("KPI_Sheet__-_HHS_Unaccompanied_Alien_Children_Program.csv")
     df.columns = df.columns.str.strip()
     df = df.rename(columns={
         'Children apprehended and placed in CBP custody*': 'Apprehended',
@@ -59,7 +59,8 @@ k1.metric("Avg Transfer Efficiency", f"{df_f['Transfer_Efficiency'].mean():.2%}"
 k2.metric("Avg Discharge Effectiveness", f"{df_f['Discharge_Effectiveness'].mean():.2%}")
 k3.metric("Avg Pipeline Throughput", f"{df_f['Pipeline_Throughput'].mean():.2f}")
 k4.metric("Total Backlog", f"{df_f['Backlog'].sum():,.0f}")
-k5.metric("Avg Stability Score", f"{df_f['Stability_Score'].mean():.4f}")
+stability_mean = pd.to_numeric(df_f['Stability_Score'], errors='coerce').mean()
+k5.metric("Avg Stability Score", f"{stability_mean:.4f}")
 st.divider()
 
 st.subheader("🔄 Module 1 — Care Pipeline Flow Visualization")
